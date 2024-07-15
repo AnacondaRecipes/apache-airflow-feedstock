@@ -1,0 +1,144 @@
+{% set name = "apache-airflow" %}
+{% set version = "2.9.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/apache_airflow-{{ version }}.tar.gz
+  sha256: c5d7b4bbcbc4d7b2bb3433af2d9307a3f3dc0b142c25fdbe8f187dd4cad5521d
+
+build:
+  skip: true  # [py>=313 or py2k]
+  entry_points:
+    - airflow = airflow.__main__:main
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.8,<4.dev0,<3.13
+    - gitpython ==3.1.43
+    - gitdb ==4.0.11
+    - hatchling ==1.24.2
+    - packaging ==24.0
+    - pathspec ==0.12.1
+    - pluggy ==1.5.0
+    - smmap ==5.0.1
+    - tomli ==2.0.1  # [py<311]
+    - trove-classifiers ==2024.5.22
+    - pip
+ run:
+    - python >=3.8,<4.dev0,<3.13
+    - alembic <2.0,>=1.13.1
+    - argcomplete >=1.10
+    - asgiref
+    - attrs >=22.1.0
+    - blinker >=1.6.2
+    - colorlog <5.0,>=4.0.2
+    - configupdater >=3.1.1
+    - connexion <3.0,>=2.10.0
+    - cron-descriptor >=1.2.24
+    - croniter >=2.0.2
+    - cryptography >=39.0.0
+    - deprecated >=1.2.13
+    - dill >=0.2.2
+    - flask-caching >=1.5.0
+    - flask-session <0.6,>=0.4.0
+    - flask-wtf >=0.15
+    - flask <2.3,>=2.2
+    - fsspec >=2023.10.0
+    - google-re2 >=1.0
+    - gunicorn >=20.1.0
+    - httpx
+    - importlib-metadata >=6.5  # [py<312]
+    - importlib_resources !=6.2.0,!=6.3.0,!=6.3.1,>=5.2  # [py<39]
+    - itsdangerous >=2.0
+    - jinja2 >=3.0.0
+    - jsonschema >=4.18.0
+    - lazy-object-proxy
+    - linkify-it-py >=2.0.0
+    - lockfile >=0.12.2
+    - markdown-it-py >=2.1.0
+    - markupsafe >=1.1.1
+    - marshmallow-oneofschema >=2.0.1
+    - mdit-py-plugins >=0.3.0
+    - methodtools >=0.4.7
+    - opentelemetry-api >=1.15.0
+    - opentelemetry-exporter-otlp
+    - packaging >=14.0
+    - pathspec >=0.9.0
+    - pendulum <4.0,>=2.1.2
+    - pluggy >=1.0
+    - psutil >=4.2.0
+    - pygments >=2.0.1
+    - pyjwt >=2.0.0
+    - python-daemon >=3.0.0
+    - python-dateutil >=2.3
+    - python-nvd3 >=0.15.0
+    - python-slugify >=5.0
+    - requests <3,>=2.27.0
+    - rfc3339-validator >=0.1.4
+    - rich-argparse >=1.0.0
+    - rich >=12.4.4
+    - setproctitle >=1.1.8
+    - sqlalchemy <2.0,>=1.4.36
+    - sqlalchemy-jsonfield >=1.0
+    - tabulate >=0.7.5
+    - tenacity !=8.2.0,>=6.2.0
+    - termcolor >=1.1.0
+    - unicodecsv >=0.14.1
+    - universal_pathlib >=0.2.2
+    - werkzeug <3,>=2.0
+    - apache-airflow-providers-common-io
+    - apache-airflow-providers-common-sql
+    - apache-airflow-providers-fab >=1.0.2
+    - apache-airflow-providers-ftp
+    - apache-airflow-providers-http
+    - apache-airflow-providers-imap
+    - apache-airflow-providers-smtp
+    - apache-airflow-providers-sqlite
+
+
+test:
+  imports:
+    - apache_airflow
+  commands:
+    - pip check
+    - airflow --help
+  requires:
+    - pip
+
+about:
+  summary: Programmatically author, schedule and monitor data pipelines
+  license: MIT AND BSD-2-Clause AND BSD-3-Clause AND Apache-2.0
+  license_file:
+    - LICENSE
+    - airflow/www/static/dist/swagger-ui/LICENSE
+    - airflow/www/static/dist/swagger-ui/NOTICE
+    - 3rd-party-licenses/LICENSE-datatables.txt
+    - 3rd-party-licenses/LICENSE-d3-tip.txt
+    - 3rd-party-licenses/LICENSES-ui.txt
+    - 3rd-party-licenses/LICENSE-reproducible.txt
+    - 3rd-party-licenses/LICENSE-moment.txt
+    - 3rd-party-licenses/LICENSE-jquery.txt
+    - 3rd-party-licenses/LICENSE-pytest-capture-warnings.txt
+    - 3rd-party-licenses/LICENSE-dagre-d3.txt
+    - 3rd-party-licenses/LICENSE-flask-kerberos.txt
+    - 3rd-party-licenses/LICENSE-hue.txt
+    - 3rd-party-licenses/LICENSE-jqclock.txt
+    - 3rd-party-licenses/LICENSE-bootstrap.txt
+    - 3rd-party-licenses/LICENSE-unicodecsv.txt
+    - 3rd-party-licenses/LICENSE-normalize.txt
+    - 3rd-party-licenses/LICENSE-bootstrap3-typeahead.txt
+    - 3rd-party-licenses/LICENSE-elasticmock.txt
+    - 3rd-party-licenses/LICENSE-eonasdan-bootstrap-datetimepicker.txt
+    - 3rd-party-licenses/LICENSE-d3-shape.txt
+    - 3rd-party-licenses/LICENSE-d3js.txt
+
+extra:
+  anaconda-services:
+    reason: For a project
+    recipe-maintainers:
+      - ianaobi
