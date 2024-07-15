@@ -29,7 +29,7 @@ requirements:
     - tomli ==2.0.1  # [py<311]
     - trove-classifiers ==2024.5.22
     - pip
- run:
+  run:
     - python >=3.8,<4.dev0,<3.13
     - alembic <2.0,>=1.13.1
     - argcomplete >=1.10
@@ -100,7 +100,6 @@ requirements:
     - apache-airflow-providers-smtp
     - apache-airflow-providers-sqlite
 
-
 test:
   imports:
     - apache_airflow
@@ -138,8 +137,7 @@ about:
     - 3rd-party-licenses/LICENSE-d3js.txt
 
 extra:
-  anaconda-services:
-    reason: For a project
+   anaconda-services:
+    reason: for a project
     recipe-maintainers:
       - ianaobi
-      - bkreider
